@@ -1,6 +1,7 @@
 import 'package:apitmtpproject/apiservice/apiService.dart';
 import 'package:apitmtpproject/models/CastModel.dart';
 import 'package:apitmtpproject/models/apiModel.dart';
+import 'package:apitmtpproject/models/searchmoviemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,4 +32,13 @@ final homeFutureProvider = FutureProvider.autoDispose<List<ApiModel?>>((
 final castprovider =
     FutureProvider.family.autoDispose<CastModel?, int>((ref, s) async {
   return await ref.watch(Apiprovider).Cast(s);
+});
+
+//search page
+final textProvider = StateProvider<TextEditingController>((ref) {
+  return TextEditingController();
+});
+final searchprovider = FutureProvider.autoDispose
+    .family<SearchModels?, String>((ref, query) async {
+  return await ref.watch(Apiprovider).getSearchMovies(query);
 });

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:apitmtpproject/models/CastModel.dart';
 import 'package:apitmtpproject/models/apiModel.dart';
+import 'package:apitmtpproject/models/searchmoviemodel.dart';
 import 'package:dio/dio.dart';
 
 class ApiService {
@@ -76,5 +77,22 @@ class ApiService {
       print(e);
       return null;
     }
+  }
+
+  Future<SearchModels?> getSearchMovies(String query) async {
+    try {
+      Response response = await dio.get("/search/movie?query=$query");
+      print(query);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        String jsonString = json.encode(response.data);
+        print(jsonString);
+        return searchModelsFromJson(jsonString);
+      }
+      return null;
+    } on DioError catch (e) {
+      print("Error on get Search : $e");
+    }
+    return null;
   }
 }

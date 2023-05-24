@@ -1,7 +1,8 @@
+import 'package:apitmtpproject/constants/size.dart';
 import 'package:apitmtpproject/providers/provider.dart';
 import 'package:apitmtpproject/view/navbar/pageview_widgets/account.dart';
 import 'package:apitmtpproject/view/navbar/pageview_widgets/home.dart';
-import 'package:apitmtpproject/view/navbar/pageview_widgets/moview.dart';
+
 import 'package:apitmtpproject/view/navbar/pageview_widgets/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double maxWidth = MediaQuery.of(context).size.width;
+    double maxHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       extendBody: true,
       body: PageView(
@@ -25,10 +28,12 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 40.0),
+        padding:
+            EdgeInsets.only(bottom: maxHeight * (40 / Sizex.currentHeight)),
         child: Card(
           shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius:
+                BorderRadius.circular(maxWidth * (20 / Sizex.currentWidth)),
           ),
           child: BottomNavigationBar(
               elevation: 0,
@@ -37,22 +42,26 @@ class HomePage extends ConsumerWidget {
               currentIndex: ref.watch(bottomprovider),
               onTap: (value) {
                 ref.read(bottomprovider.notifier).state = value;
-                ref.read(pageProvider.notifier).state.animateToPage(value,
+                ref.watch(pageProvider).animateToPage(value,
                     duration: Duration(milliseconds: 10), curve: Curves.easeIn);
               },
               backgroundColor: Colors.transparent,
               type: BottomNavigationBarType.fixed,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
                     icon: Icon(
                       Icons.home,
-                      size: 30,
+                      size: maxWidth * (30 / Sizex.currentWidth),
                     ),
                     label: ""),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.search, size: 30), label: ""),
+                    icon: Icon(Icons.search,
+                        size: maxWidth * (30 / Sizex.currentWidth)),
+                    label: ""),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person, size: 30), label: ""),
+                    icon: Icon(Icons.person,
+                        size: maxWidth * (30 / Sizex.currentWidth)),
+                    label: ""),
               ]),
         ),
       ),

@@ -6,4 +6,16 @@ class profile {
     "assets/images/Untitled.jpeg"
   ];
   List<String> proname = ["Andrew", "Jhone", "michel", "Add profile"];
+  List<String> Catogories = [
+    "Movies",
+    "Geners",
+    "Countries",
+    "Years",
+    "Critique",
+    "Tv Show",
+    "Awards",
+    "Direction",
+    "Coming Soon",
+    "Box Office"
+  ];
 }

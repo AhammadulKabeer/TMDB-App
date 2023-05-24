@@ -1,3 +1,4 @@
+import 'package:apitmtpproject/constants/size.dart';
 import 'package:apitmtpproject/controllers/addprofile.dart';
 import 'package:apitmtpproject/view/loginpage/loginpage.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
+    double maxWidth = MediaQuery.of(context).size.width;
+    double maxHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.black,
       body: SingleChildScrollView(
@@ -23,56 +26,62 @@ class _AccountPageState extends State<AccountPage> {
           Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 50.0, bottom: 8, left: 10),
+                padding: EdgeInsets.only(
+                    top: maxHeight * (50 / Sizex.currentHeight),
+                    bottom: maxHeight * (8 / Sizex.currentHeight),
+                    left: maxWidth * (10 / Sizex.currentWidth)),
                 child: Row(
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: maxWidth * (8 / Sizex.currentWidth)),
                       child: Icon(
                         Icons.arrow_back,
                         color: Colors.white,
-                        size: 30,
+                        size: maxWidth * (30 / Sizex.currentWidth),
                       ),
                     ),
                     Text(
                       "Profiles & More",
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25,
+                          fontSize: maxWidth * (25 / Sizex.currentWidth),
                           fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
+              SizedBox(
+                height: maxHeight * (10 / Sizex.currentHeight),
               ),
               SizedBox(
                 // color: Colors.amber,
-                height: 155,
+                height: maxHeight * (155 / Sizex.currentHeight),
                 child: GridView.builder(
                     shrinkWrap: true,
                     itemCount: profile().pro.length,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4,
                       // childAspectRatio: 1 / 1.4,
-                      mainAxisExtent: 130,
-                      mainAxisSpacing: 6,
-                      crossAxisSpacing: 6,
+                      mainAxisExtent: maxHeight * (140 / Sizex.currentHeight),
+                      mainAxisSpacing: maxWidth * (6 / Sizex.currentWidth),
+                      crossAxisSpacing: maxWidth * (6 / Sizex.currentWidth),
                     ),
                     itemBuilder: (context, index) {
                       return Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0, vertical: 4),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: maxWidth * (4 / Sizex.currentWidth),
+                            vertical: maxHeight * (4 / Sizex.currentHeight),
+                          ),
                           child: Column(
                             children: [
                               SizedBox(
                                 // color: Colors.amber,
-                                width: 100,
-                                height: 100,
+                                width: maxWidth * (100 / Sizex.currentWidth),
+                                height: maxHeight * (100 / Sizex.currentHeight),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(
+                                      maxWidth * (15 / Sizex.currentWidth)),
                                   child: Image.asset(
                                     profile().pro[index],
                                     fit: BoxFit.cover,
@@ -81,7 +90,9 @@ class _AccountPageState extends State<AccountPage> {
                               ),
                               Text(
                                 profile().proname[index],
-                                style: const TextStyle(
+                                style: TextStyle(
+                                    fontSize:
+                                        maxWidth * (14 / Sizex.currentWidth),
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400),
                               )
@@ -91,10 +102,10 @@ class _AccountPageState extends State<AccountPage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(
                     Icons.edit,
-                    size: 30,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                     color: Colors.white,
                   ),
                   Text(
@@ -102,19 +113,22 @@ class _AccountPageState extends State<AccountPage> {
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w500,
-                        fontSize: 30),
+                        fontSize: maxWidth * (30 / Sizex.currentWidth)),
                   )
                 ],
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: maxHeight * (20 / Sizex.currentHeight),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(
+                  horizontal: maxWidth * (10 / Sizex.currentWidth),
+                  vertical: maxHeight * (10 / Sizex.currentHeight),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                      maxWidth * (10 / Sizex.currentWidth)),
                 ),
                 child: ExpansionTile(
                   onExpansionChanged: (value) {
@@ -122,31 +136,32 @@ class _AccountPageState extends State<AccountPage> {
                       tasExpanded = !value;
                     });
                   },
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.notifications,
                     color: Colors.white,
-                    size: 28,
+                    size: maxWidth * (28 / Sizex.currentWidth),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.navigate_next,
                     color: Colors.white,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Notifications',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: maxWidth * (20 / Sizex.currentWidth),
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ),
               AnimatedCrossFade(
                 firstChild: Column(
-                  children: const [
+                  children: [
                     Text(
                       'you are beautiful',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: maxWidth * (50 / Sizex.currentWidth),
                         color: Colors.white,
                       ),
                     ),
@@ -159,11 +174,14 @@ class _AccountPageState extends State<AccountPage> {
                 duration: const Duration(milliseconds: 500),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(
+                  horizontal: maxWidth * (10 / Sizex.currentWidth),
+                  vertical: maxHeight * (10 / Sizex.currentHeight),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                      maxWidth * (10 / Sizex.currentWidth)),
                 ),
                 child: ExpansionTile(
                   onExpansionChanged: (value) {
@@ -171,31 +189,32 @@ class _AccountPageState extends State<AccountPage> {
                       tbsExpanded = !value;
                     });
                   },
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.library_books_sharp,
                     color: Colors.white,
-                    size: 28,
+                    size: maxWidth * (28 / Sizex.currentWidth),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.navigate_next,
                     color: Colors.white,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                   ),
-                  title: const Text(
+                  title: Text(
                     'My list',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: maxWidth * (20 / Sizex.currentWidth),
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ),
               AnimatedCrossFade(
                 firstChild: Column(
-                  children: const [
+                  children: [
                     Text(
                       'you can do it',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: maxWidth * (50 / Sizex.currentWidth),
                         color: Colors.white,
                       ),
                     ),
@@ -208,11 +227,14 @@ class _AccountPageState extends State<AccountPage> {
                 duration: const Duration(milliseconds: 500),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(
+                  horizontal: maxWidth * (10 / Sizex.currentWidth),
+                  vertical: maxHeight * (10 / Sizex.currentHeight),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                      maxWidth * (10 / Sizex.currentWidth)),
                 ),
                 child: ExpansionTile(
                   onExpansionChanged: (value) {
@@ -220,31 +242,32 @@ class _AccountPageState extends State<AccountPage> {
                       tcsExpanded = !value;
                     });
                   },
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.settings,
                     color: Colors.white,
-                    size: 28,
+                    size: maxWidth * (28 / Sizex.currentWidth),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.navigate_next,
                     color: Colors.white,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                   ),
-                  title: const Text(
+                  title: Text(
                     'App setting',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: maxWidth * (20 / Sizex.currentWidth),
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ),
               AnimatedCrossFade(
                 firstChild: Column(
-                  children: const [
+                  children: [
                     Text(
                       'dont lose hope',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: maxWidth * (50 / Sizex.currentWidth),
                         color: Colors.white,
                       ),
                     ),
@@ -257,11 +280,13 @@ class _AccountPageState extends State<AccountPage> {
                 duration: const Duration(milliseconds: 500),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(
+                    horizontal: maxWidth * (10 / Sizex.currentWidth),
+                    vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                      maxWidth * (10 / Sizex.currentWidth)),
                 ),
                 child: ExpansionTile(
                   onExpansionChanged: (value) {
@@ -269,31 +294,32 @@ class _AccountPageState extends State<AccountPage> {
                       tdsExpanded = !value;
                     });
                   },
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.person,
                     color: Colors.white,
-                    size: 28,
+                    size: maxWidth * (28 / Sizex.currentWidth),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.navigate_next,
                     color: Colors.white,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Account',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: maxWidth * (20 / Sizex.currentWidth),
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ),
               AnimatedCrossFade(
                 firstChild: Column(
-                  children: const [
+                  children: [
                     Text(
                       'allah with you',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: maxWidth * (50 / Sizex.currentWidth),
                         color: Colors.white,
                       ),
                     ),
@@ -306,11 +332,14 @@ class _AccountPageState extends State<AccountPage> {
                 duration: const Duration(milliseconds: 500),
               ),
               Container(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: EdgeInsets.symmetric(
+                  horizontal: maxWidth * (10 / Sizex.currentWidth),
+                  vertical: maxHeight * (10 / Sizex.currentHeight),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.grey,
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(
+                      maxWidth * (10 / Sizex.currentWidth)),
                 ),
                 child: ExpansionTile(
                   onExpansionChanged: (value) {
@@ -318,57 +347,62 @@ class _AccountPageState extends State<AccountPage> {
                       tesExpanded = !value;
                     });
                   },
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.help_center_outlined,
                     color: Colors.white,
-                    size: 28,
+                    size: maxWidth * (28 / Sizex.currentWidth),
                   ),
-                  trailing: const Icon(
+                  trailing: Icon(
                     Icons.navigate_next,
                     color: Colors.white,
+                    size: maxWidth * (30 / Sizex.currentWidth),
                   ),
-                  title: const Text(
+                  title: Text(
                     'Help',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: maxWidth * (20 / Sizex.currentWidth),
                         fontWeight: FontWeight.w400),
                   ),
                 ),
               ),
               AnimatedCrossFade(
                 firstChild: Column(
-                  children: const [
+                  children: [
                     Text(
                       'try hard',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: maxWidth * (50 / Sizex.currentWidth),
                         color: Colors.white,
                       ),
                     ),
                   ],
                 ),
-                secondChild: const SizedBox(),
+                secondChild: SizedBox(),
                 crossFadeState: tesExpanded
                     ? CrossFadeState.showFirst
                     : CrossFadeState.showSecond,
-                duration: const Duration(milliseconds: 500),
+                duration: Duration(milliseconds: 500),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 40.0),
+                padding: EdgeInsets.only(
+                  bottom: maxHeight * (40 / Sizex.currentHeight),
+                ),
                 child: Center(
                   child: TextButton(
                       onPressed: () {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoginPage(),
+                              builder: (context) => LoginPage(),
                             ),
                             (route) => false);
                       },
-                      child: const Text(
+                      child: Text(
                         "Sign Out",
-                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: maxWidth * (25 / Sizex.currentWidth)),
                       )),
                 ),
               )

@@ -1,3 +1,4 @@
+import 'package:apitmtpproject/constants/size.dart';
 import 'package:apitmtpproject/providers/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class HomePageview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var data = ref.watch(homeFutureProvider);
-
+    double maxWidth = MediaQuery.of(context).size.width;
+    double maxHeight = MediaQuery.of(context).size.height;
     var imagebaseurl = "https://image.tmdb.org/t/p";
     return Scaffold(
       backgroundColor: Colors.black,
@@ -21,7 +23,7 @@ class HomePageview extends ConsumerWidget {
         slivers: [
           SliverAppBar(
             backgroundColor: Colors.transparent,
-            expandedHeight: MediaQuery.of(context).size.height / 2,
+            expandedHeight: maxHeight / 2,
             flexibleSpace: data.when(
               data: (data) {
                 if (data[0] != null) {
@@ -29,7 +31,7 @@ class HomePageview extends ConsumerWidget {
                     children: [
                       CarouselSlider.builder(
                         options: CarouselOptions(
-                            height: MediaQuery.of(context).size.height / 1.8,
+                            height: maxHeight / 1.8,
                             autoPlayAnimationDuration:
                                 const Duration(seconds: 2),
                             autoPlay: true,
@@ -68,7 +70,8 @@ class HomePageview extends ConsumerWidget {
                                   ),
                                 ),
                                 Positioned(
-                                    top: 260,
+                                    top:
+                                        maxHeight * (260 / Sizex.currentHeight),
                                     left: 0,
                                     right: 0,
                                     child: Column(
@@ -78,28 +81,32 @@ class HomePageview extends ConsumerWidget {
                                           MainAxisAlignment.center,
                                       children: [
                                         SizedBox(
-                                          width: 350,
+                                          width: maxWidth *
+                                              (350 / Sizex.currentWidth),
                                           child: Text(
                                             textAlign: TextAlign.center,
                                             data[0]!.results[index].title!,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 30,
+                                                fontSize: maxWidth *
+                                                    (30 / Sizex.currentWidth),
                                                 fontWeight: FontWeight.w500),
                                           ),
                                         ),
-                                        const SizedBox(
-                                          height: 5,
+                                        SizedBox(
+                                          height: maxHeight *
+                                              (5 / Sizex.currentHeight),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.all(8.0),
+                                          padding: EdgeInsets.all(8.0),
                                           child: Text(
                                             maxLines: 3,
                                             textAlign: TextAlign.center,
                                             data[0]!.results[index].overview!,
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 20,
+                                                fontSize: maxWidth *
+                                                    (20 / Sizex.currentWidth),
                                                 fontWeight: FontWeight.w300),
                                           ),
                                         ),
@@ -113,12 +120,12 @@ class HomePageview extends ConsumerWidget {
                     ],
                   );
                 } else {
-                  return const Text(
+                  return Text(
                     'Oops...,Somthing went wrong!!!',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: maxWidth * (20 / Sizex.currentWidth),
                     ),
                   );
                 }
@@ -135,35 +142,37 @@ class HomePageview extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const ListTile(
+                ListTile(
                   title: Text(
                     "you might also like",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: maxWidth * (25 / Sizex.currentWidth),
                         fontWeight: FontWeight.w500),
                   ),
                   subtitle: Text(
                     "updated after each viewing and rating",
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: maxWidth * (16 / Sizex.currentWidth)),
                   ),
                   trailing: CircleAvatar(
                     backgroundColor: Color.fromARGB(255, 66, 62, 62),
                     child: Icon(
                       Icons.arrow_forward_ios_rounded,
-                      size: 25,
+                      size: maxWidth * (25 / Sizex.currentWidth),
                       color: Color.fromARGB(255, 205, 199, 199),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: maxHeight * (10 / Sizex.currentHeight),
                 ),
                 data.when(
                   data: (data) {
                     if (data[1] != null) {
                       return SizedBox(
-                        height: 200,
+                        height: maxHeight * (200 / Sizex.currentHeight),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -179,16 +188,24 @@ class HomePageview extends ConsumerWidget {
                                 ));
                               },
                               child: Container(
-                                margin: const EdgeInsets.all(5),
-                                padding: const EdgeInsets.all(3),
+                                width: maxWidth * (150 / Sizex.currentWidth),
+                                height: maxHeight * (200 / Sizex.currentHeight),
+                                margin: EdgeInsets.all(
+                                    maxWidth * (5 / Sizex.currentWidth)),
+                                padding: EdgeInsets.all(
+                                    maxWidth * (3 / Sizex.currentWidth)),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(
+                                      maxWidth * (20 / Sizex.currentWidth)),
                                   color: Colors.white,
                                 ),
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(
+                                      maxWidth * (15 / Sizex.currentWidth)),
                                   child: Image.network(
-                                      '$imagebaseurl/w780${data[1]!.results[index].posterPath!}'),
+                                    '$imagebaseurl/w780${data[1]!.results[index].posterPath!}',
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                             );
@@ -209,13 +226,16 @@ class HomePageview extends ConsumerWidget {
                     return const Center(child: CircularProgressIndicator());
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0, left: 20, bottom: 8),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: maxHeight * (8 / Sizex.currentHeight),
+                      left: maxWidth * (20 / Sizex.currentWidth),
+                      bottom: maxHeight * (8 / Sizex.currentHeight)),
                   child: Text(
                     "Most popular movie",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: maxWidth * (25 / Sizex.currentWidth),
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -223,7 +243,7 @@ class HomePageview extends ConsumerWidget {
                   data: (data) {
                     if (data[2] != null) {
                       return SizedBox(
-                        height: 250,
+                        height: maxHeight * (250 / Sizex.currentHeight),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -241,14 +261,19 @@ class HomePageview extends ConsumerWidget {
                               child: Column(
                                 children: [
                                   Container(
-                                    width: 150,
-                                    height: 200,
-                                    margin: const EdgeInsets.all(5),
+                                    width:
+                                        maxWidth * (150 / Sizex.currentWidth),
+                                    height:
+                                        maxHeight * (200 / Sizex.currentHeight),
+                                    margin: EdgeInsets.all(
+                                        maxWidth * (5 / Sizex.currentWidth)),
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(
+                                          maxWidth * (20 / Sizex.currentWidth)),
                                     ),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
+                                      borderRadius: BorderRadius.circular(
+                                          maxWidth * (15 / Sizex.currentWidth)),
                                       child: Image.network(
                                         '$imagebaseurl/w780${data[2]!.results[index].posterPath!}',
                                         fit: BoxFit.cover,
@@ -256,12 +281,14 @@ class HomePageview extends ConsumerWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 150,
+                                    width:
+                                        maxWidth * (150 / Sizex.currentWidth),
                                     child: Text(
                                       '${data[2]!.results[index].name}',
                                       textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                        fontSize: 16,
+                                      style: TextStyle(
+                                        fontSize: maxWidth *
+                                            (16 / Sizex.currentWidth),
                                         color: Colors.white,
                                         fontWeight: FontWeight.w400,
                                       ),
@@ -287,13 +314,16 @@ class HomePageview extends ConsumerWidget {
                     return const Center(child: CircularProgressIndicator());
                   },
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 8.0, bottom: 8, left: 20),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: maxHeight * (8 / Sizex.currentHeight),
+                      bottom: maxHeight * (8 / Sizex.currentHeight),
+                      left: maxWidth * (20 / Sizex.currentWidth)),
                   child: Text(
                     "Cast",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: maxWidth * (25 / Sizex.currentWidth),
                         fontWeight: FontWeight.w500),
                   ),
                 ),
@@ -301,7 +331,7 @@ class HomePageview extends ConsumerWidget {
                   data: (data) {
                     if (data[3] != null) {
                       return SizedBox(
-                        height: 250,
+                        height: maxHeight * (250 / Sizex.currentHeight),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -311,14 +341,18 @@ class HomePageview extends ConsumerWidget {
                             return Column(
                               children: [
                                 Container(
-                                  width: 150,
-                                  height: 200,
-                                  margin: const EdgeInsets.all(5),
+                                  width: maxWidth * (150 / Sizex.currentWidth),
+                                  height:
+                                      maxHeight * (200 / Sizex.currentHeight),
+                                  margin: EdgeInsets.all(
+                                      maxWidth * (5 / Sizex.currentWidth)),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
+                                    borderRadius: BorderRadius.circular(
+                                        maxWidth * (20 / Sizex.currentWidth)),
                                   ),
                                   child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
+                                    borderRadius: BorderRadius.circular(
+                                        maxWidth * (15 / Sizex.currentWidth)),
                                     child: Image.network(
                                       '$imagebaseurl/w780${data[3]!.results[index].profilePath}',
                                       fit: BoxFit.cover,
@@ -326,12 +360,13 @@ class HomePageview extends ConsumerWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 150,
+                                  width: maxWidth * (150 / Sizex.currentWidth),
                                   child: Text(
                                     '${data[3]!.results[index].name}',
                                     textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 16,
+                                    style: TextStyle(
+                                      fontSize:
+                                          maxWidth * (16 / Sizex.currentWidth),
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -356,8 +391,8 @@ class HomePageview extends ConsumerWidget {
                     return const Center(child: CircularProgressIndicator());
                   },
                 ),
-                const SizedBox(
-                  height: 100,
+                SizedBox(
+                  height: maxHeight * (100 / Sizex.currentHeight),
                 )
               ],
             ),
