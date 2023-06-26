@@ -1,4 +1,4 @@
-# apitmtpproject
+# MovieApp
 
 A new Flutter project.
 
